@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quanshi.shopping_admin_service.mapper.AdminMapper">
+
+
+    <!--手动映射-->
+    <resultMap id="admin_map" type="com.quanshi.shopping_common.entity.Admin">
+        <id property="aid" column="aid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <!--映射集合-->
+        <collection property="roles" ofType="com.quanshi.shopping_common.entity.Role">
+            <id property="rid" column="rid"/>
+            <result property="roleName" column="roleName"/>
+            <result property="roleDesc" column="roleDesc"/>
+            <!--集合映射-->
+            <collection property="permissions" ofType="com.quanshi.shopping_common.entity.Permission">
+
+                <id property="pid" column="pid"/>
+                <result property="url" column="url"/>
+                <result property="permissionName" column="permissionName"/>
+            </collection>
+
+
+        </collection>
+
+    </resultMap>
+
+    <select id="findById" resultMap="admin_map">
+
+        select
+            t_admin.aid,
+            t_admin.username,
+            t_admin.`password`,
+            t_role.rid,
+            t_role.roleName,
+            t_role.roleDesc,
+            t_permission.pid,
+            t_permission.url,
+            t_permission.permissionName
+        from t_admin
+                 LEFT JOIN t_admin_role ON t_admin.aid = t_admin_role.aid
+                 LEFT JOIN t_role ON t_role.rid = t_admin_role.rid
+                 LEFT JOIN t_role_permission ON t_role.rid = t_role_permission.rid
+                 LEFT JOIN t_permission ON t_permission.pid = t_role_permission.pid
+        where t_admin.aid = #{id}
+
+    </select>
+</mapper>
