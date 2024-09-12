@@ -10,6 +10,8 @@
   <modules>
 
 
+      <module>shopping_common</module>
+    <module>shopping_goods_service</module>
   </modules>
 
 
