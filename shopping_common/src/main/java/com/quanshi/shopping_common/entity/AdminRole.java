@@ -25,6 +25,6 @@ public class AdminRole implements Serializable {
     @TableId("aid")
     private Long aid;
 
-    @TableId("rid")
+//    @TableId("rid")
     private Long rid;
 }

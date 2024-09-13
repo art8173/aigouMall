@@ -25,6 +25,6 @@ public class RolePermission implements Serializable {
     @TableId("rid")
     private Long rid;
 
-    @TableId("pid")
+//    @TableId("pid")
     private Long pid;
 }

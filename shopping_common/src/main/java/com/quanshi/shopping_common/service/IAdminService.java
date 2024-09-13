@@ -16,4 +16,9 @@ public interface IAdminService {
     Page<Admin> search(int page, int size);
     // 修改管理员角色
     void updateRoleToAdmin(Long aid, Long[] rids);
+
+    Admin findByUsername(String username);
+
+
+
 }

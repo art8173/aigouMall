@@ -25,6 +25,9 @@
         </collection>
 
     </resultMap>
+    <delete id="deleteAdminAllRole">
+        delte from t_admin_role where aid = #{aid}
+    </delete>
 
     <select id="findById" resultMap="admin_map">
 

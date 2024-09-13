@@ -8,4 +8,5 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     Admin findById(Long aid);
 
+    int deleteAdminAllRole(Long aid);
 }
