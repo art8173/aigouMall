@@ -7,10 +7,13 @@ import com.quanshi.shopping_admin_service.mapper.AdminMapper;
 import com.quanshi.shopping_admin_service.mapper.AdminRoleMapper;
 import com.quanshi.shopping_common.entity.Admin;
 import com.quanshi.shopping_common.entity.AdminRole;
+import com.quanshi.shopping_common.entity.Permission;
 import com.quanshi.shopping_common.service.IAdminService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @DubboService
 public class AdminServiceImpl implements IAdminService {
@@ -84,5 +87,13 @@ public class AdminServiceImpl implements IAdminService {
         LambdaQueryWrapper<Admin> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Admin::getUsername,username);
         return adminMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public List<Permission> findAllPermission(String username) {
+
+        List<Permission>  permissions=  adminMapper.findAllPermission(username);
+
+        return permissions;
     }
 }

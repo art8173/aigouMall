@@ -1,0 +1,8 @@
+# 该镜像需要依赖的基础镜像
+FROM openjdk:17
+# 声明服务运行在端口
+EXPOSE 9002
+# 将当前目录下的jar包复制到docker容器的/目录下
+ADD ./target/shopping_admin_service-1.0-SNAPSHOT.jar shopping_admin_service.jar
+# 指定docker容器启动时运行jar包
+ENTRYPOINT ["java","-jar","/shopping_admin_service.jar"]

@@ -49,4 +49,17 @@
         where t_admin.aid = #{id}
 
     </select>
+    <select id="findAllPermission" resultType="com.quanshi.shopping_common.entity.Permission">
+        select
+            t_permission.pid,
+            t_permission.url,
+            t_permission.permissionName
+        from t_admin
+                 LEFT JOIN t_admin_role ON t_admin.aid = t_admin_role.aid
+                 LEFT JOIN t_role ON t_role.rid = t_admin_role.rid
+                 LEFT JOIN t_role_permission ON t_role.rid = t_role_permission.rid
+                 LEFT JOIN t_permission ON t_permission.pid = t_role_permission.pid
+        where t_admin.username = #{username}
+
+    </select>
 </mapper>

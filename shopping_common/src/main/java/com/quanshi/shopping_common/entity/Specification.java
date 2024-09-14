@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -41,4 +42,8 @@ public class Specification implements Serializable {
      */
     @TableField("productTypeId")
     private Long productTypeId;
+
+
+    @TableField(exist = false)
+    List<SpecificationOption> specificationOptions;
 }

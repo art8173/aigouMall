@@ -28,9 +28,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public BaseResult otherException(Exception e){
         e.printStackTrace();
+        if(e.getClass().getSimpleName().equals("NotPermissionException")){
+            Integer code = BusErrorEnum.NO_PERMISSION_ERROR.getCode();
+            String message = BusErrorEnum.NO_PERMISSION_ERROR.getMessage();
+            return BaseResult.error(code,message);
+        }
+
+
         Integer code = BusErrorEnum.SYSTEM_ERROR.getCode();
         String message = BusErrorEnum.SYSTEM_ERROR.getMessage();
         return BaseResult.error(code,message);
     }
+
 
 }
