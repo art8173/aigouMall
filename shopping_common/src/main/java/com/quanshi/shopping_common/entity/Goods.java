@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -90,4 +91,14 @@ public class Goods implements Serializable {
      */
     @TableField("isMarketable")
     private Boolean isMarketable;
+
+
+    //商品图片
+    @TableField(exist = false)
+    private List<GoodsImage> images;
+
+
+    //商品规格项
+    @TableField(exist = false)
+    private List<Specification> specifications;
 }

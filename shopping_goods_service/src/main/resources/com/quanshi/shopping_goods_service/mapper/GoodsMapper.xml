@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quanshi.shopping_goods_service.mapper.GoodsMapper">
+
+
+    <resultMap id="resultMap" type="com.quanshi.shopping_common.entity.Goods">
+        <id property="id" column="gid"/>
+        <!--如果sql查询的结果列和java实体的属性名称一致，MyBatisPlus自动映射数据-->
+        <result property="goodsName" column="goodsName"></result>
+        <result property="caption" column="caption"></result>
+        <result property="price" column="price"></result>
+        <result property="headerPic" column="headerPic"></result>
+        <result property="isMarketable" column="isMarketable"></result>
+        <result property="brandId" column="brandId"></result>
+        <result property="productType1Id" column="productType1Id"></result>
+        <result property="productType2Id" column="productType2Id"></result>
+        <result property="productType3Id" column="productType3Id"></result>
+        <result property="introduction" column="introduction"></result>
+
+        <!--映射图片集合-->
+        <collection property="images" ofType="com.quanshi.shopping_common.entity.GoodsImage">
+            <id property="id" column="imageId"/>
+            <result property="imageTitle" column="imageTitle"></result>
+            <result property="imageUrl" column="imageUrl"></result>
+        </collection>
+
+        <!--映射商品规格-->
+        <collection property="specifications" ofType="com.quanshi.shopping_common.entity.Specification">
+            <id property="id" column="specId"/>
+            <result property="specName" column="specName"/>
+            <result property="productTypeId" column="productTypeId"/>
+
+            <!--映射商品规格选项-->
+            <collection property="specificationOptions" ofType="com.quanshi.shopping_common.entity.SpecificationOption">
+                <id property="id" column="optionId"/>
+                <result property="optionName" column="optionName"/>
+            </collection>
+        </collection>
+
+    </resultMap>
+
+    <select id="findById" resultMap="resultMap">
+        SELECT
+            t_goods.id gid,
+            t_goods.goodsName,
+            t_goods.caption,
+            t_goods.price,
+            t_goods.brandId,
+            t_goods.productType1Id,
+            t_goods.productType2Id,
+            t_goods.productType3Id,
+            t_goods.headerPic,
+            t_goods.isMarketable,
+            t_goods.introduction,
+            t_goods_image.id imageId,
+            t_goods_image.imageUrl,
+            t_goods_image.imageTitle,
+            t_goods_specification_option.optionId,
+            t_specification_option.optionName,
+            t_specification_option.specId,
+            t_specification.specName,
+            t_specification.productTypeId
+
+        FROM t_goods
+                 LEFT JOIN t_goods_image ON t_goods.id = t_goods_image.goodsId
+                 LEFT JOIN t_goods_specification_option ON t_goods.id = t_goods_specification_option.gid
+                 LEFT JOIN t_specification_option ON t_goods_specification_option.optionId = t_specification_option.id
+                 LEFT JOIN t_specification ON t_specification.id = t_specification_option.specId
+        WHERE t_goods.id = #{id}
+    </select>
+</mapper>
